@@ -62,7 +62,7 @@
       "type": "object",
       "title": "coc-tailwindcss3 configuration",
       "properties": {
-        "tailwindCSS.enabled": {
+        "tailwindCSS.enable": {
           "type": "boolean",
           "default": true,
           "description": "Enable coc-tailwindcss3 extension"

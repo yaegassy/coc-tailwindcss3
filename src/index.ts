@@ -17,7 +17,7 @@ import {
 import fs from 'fs';
 import minimatch from 'minimatch';
 import path from 'path';
-import { getConfigCustomServerPath, getConfigExcludePatterns } from './config';
+import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
@@ -84,6 +84,8 @@ function isExcluded(file: string, folder: WorkspaceFolder): boolean {
 }
 
 export async function activate(context: ExtensionContext) {
+  if (!getConfigTailwindCssEnable()) return;
+
   let module = getConfigCustomServerPath();
   if (module && fs.existsSync(module)) {
     module = module;

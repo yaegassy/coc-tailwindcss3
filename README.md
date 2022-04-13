@@ -40,6 +40,7 @@ npx tailwindcss init
 
 ## Configuration options
 
+- `tailwindCSS.enable`: Enable coc-tailwindcss3 extension, default: `true`
 - `tailwindCSS.trace.server`: Trace level of tailwindCSS language server, default: `off`
 - `tailwindCSS.custom.serverPath`: Custom path to server module. If there is no setting, the built-in module will be used, default: `""`
 - `tailwindCSS.emmetCompletions`: Enable class name completions when using Emmet-style syntax, for example `div.bg-red-500.uppercase`, default: `false`

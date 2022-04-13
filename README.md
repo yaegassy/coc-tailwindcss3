@@ -15,7 +15,7 @@ I have created `coc-tailwindcss3` which supports "tailwindcss3".
 **CocInstall**:
 
 ```vim
-CocInstall @yaegassy/coc-tailwindcss3
+:CocInstall @yaegassy/coc-tailwindcss3
 ```
 
 > scoped packages

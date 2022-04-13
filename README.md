@@ -10,7 +10,7 @@ Intelligent Tailwind CSS tooling for [coc.nvim](https://github.com/neoclide/coc.
 
 There are two coc.nvim extensions to "tailwindcss". Unfortunately, neither is currently maintained and will not work with "tailwindcss3"...
 
-I have created `coc-tailwindcss3` which supports "tailwindcss3".
+I have created `@yaegassy/coc-tailwindcss3` which supports "tailwindcss3".
 
 ## Install
 

@@ -86,7 +86,17 @@ unzip vscode-tailwindcss-0.7.6.vsix
 }
 ```
 
-### Usage Example 2 (npm)
+### Usage Example 2 (Use extensions installed in VSCode)
+
+**setting**:
+
+```jsonc
+{
+  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.8.0/dist/tailwindServer.js
+}
+```
+
+### Usage Example 3 (npm)
 
 **prepare**:
 

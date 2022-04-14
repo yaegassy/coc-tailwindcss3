@@ -75,7 +75,7 @@ This setting allows you to use the tailwind's language server module installed i
 mkdir -p /tmp/tailwindcss-language-server
 cd /tmp/tailwindcss-language-server
 curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.8.1/vscode-tailwindcss-0.8.1.vsix
-unzip vscode-tailwindcss-0.8.0.vsix
+unzip vscode-tailwindcss-0.8.1.vsix
 ```
 
 **setting**:

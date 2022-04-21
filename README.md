@@ -82,7 +82,7 @@ unzip vscode-tailwindcss-0.8.1.vsix
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/tmp/tailwindcss-language-server/extension/dist/server/tailwindServer.js"
+  "tailwindCSS.custom.serverPath": "/tmp/tailwindcss-language-server/extension/dist/tailwindServer.js",
 }
 ```
 

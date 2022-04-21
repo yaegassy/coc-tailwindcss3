@@ -47,6 +47,9 @@ npx tailwindcss init
 - `tailwindCSS.includeLanguages`: Enable features in languages that are not supported by default. Add a mapping here between the new language and an already supported language. E.g.: `{"plaintext": "html"}`, default: `{ "eelixir": "html", "elixir": "html", "eruby": "html", "htmldjango": "html", "html.twig": "html" }`
 - `tailwindCSS.files.exclude`: Configure glob patterns to exclude from all IntelliSense features. Inherits all glob patterns from the `#files.exclude#` setting, default: ["**/.git/**", "**/node_modules/**", "**/.hg/**"]
 - `tailwindCSS.classAttributes`: The HTML attributes for which to provide class completions, hover previews, linting etc, default: `["class", "className", "ngClass"]`
+- `tailwindCSS.suggestions`: Enable autocomplete suggestions, default: `true`
+- `tailwindCSS.hovers`: Enable hovers, default: `true`
+- `tailwindCSS.codeActions`: Enable code actions, default: `true`
 - `tailwindCSS.validate`: Enable linting. Rules can be configured individually using the `tailwindcss.lint.*` settings, default: `true`
 - `tailwindCSS.lint.cssConflict`: Class names on the same HTML element which apply the same CSS property or properties, valid option ["ignore", "warning", "error"], default: `warning`
 - `tailwindCSS.lint.invalidApply`: Unsupported use of the [`@apply` directive](https://tailwindcss.com/docs/functions-and-directives/#apply), valid option ["ignore", "warning", "error"], default: `error`

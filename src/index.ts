@@ -17,7 +17,12 @@ import {
 import fs from 'fs';
 import minimatch from 'minimatch';
 import path from 'path';
-import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
+import {
+  getConfigCustomCssModeServerPath,
+  getConfigCustomServerPath,
+  getConfigExcludePatterns,
+  getConfigTailwindCssEnable,
+} from './config';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
@@ -146,6 +151,54 @@ export async function activate(context: ExtensionContext) {
         }
       });
     })
+  );
+
+  let cssServerBooted = false;
+  async function bootCssServer() {
+    if (cssServerBooted) return;
+    cssServerBooted = true;
+
+    let module = getConfigCustomCssModeServerPath();
+    if (!module) return;
+    if (fs.existsSync(module)) {
+      module = module;
+    }
+
+    const client = new LanguageClient(
+      'tailwindCSS-css-mode',
+      'Tailwind CSS',
+      {
+        run: {
+          module,
+          transport: TransportKind.ipc,
+        },
+        debug: {
+          module,
+          transport: TransportKind.ipc,
+          options: {
+            execArgv: ['--nolazy', '--inspect=6051'],
+          },
+        },
+      },
+      {
+        documentSelector: [{ language: 'tailwindcss' }],
+        outputChannelName: 'Tailwind CSS Language Mode',
+        synchronize: { configurationSection: ['css'] },
+      }
+    );
+
+    context.subscriptions.push(client.start());
+  }
+
+  workspace.onDidOpenTextDocument(
+    async () => {
+      const { document } = await workspace.getCurrentState();
+      if (document.languageId === 'tailwindcss') {
+        bootCssServer();
+      }
+    },
+    null,
+    context.subscriptions
   );
 
   function bootWorkspaceClient(folder: WorkspaceFolder) {

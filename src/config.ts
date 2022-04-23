@@ -8,6 +8,10 @@ export function getConfigCustomServerPath() {
   return workspace.getConfiguration('tailwindCSS').get<string>('custom.serverPath', '');
 }
 
+export function getConfigCustomCssModeServerPath() {
+  return workspace.getConfiguration('tailwindCSS').get<string>('custom.cssModeServerPath', '');
+}
+
 export function getConfigExcludePatterns(): string[] {
   return workspace.getConfiguration('tailwindCSS').get<string[]>('files.exclude', []);
 }

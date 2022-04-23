@@ -31,7 +31,7 @@ export const htmlLanguages = [
   'twig',
 ];
 
-export const cssLanguages = ['css', 'less', 'postcss', 'sass', 'scss', 'stylus', 'sugarss'];
+export const cssLanguages = ['css', 'less', 'postcss', 'sass', 'scss', 'stylus', 'sugarss', 'tailwindcss'];
 
 export const jsLanguages = ['javascript', 'javascriptreact', 'reason', 'rescript', 'typescript', 'typescriptreact'];
 

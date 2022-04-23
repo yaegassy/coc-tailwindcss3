@@ -77,10 +77,25 @@
           ],
           "description": "Trace level of tailwindCSS language server"
         },
+        "tailwindCSS-css-mode.trace.server": {
+          "type": "string",
+          "default": "off",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "description": "Trace level of tailwindCSS CSS Mode language server"
+        },
         "tailwindCSS.custom.serverPath": {
           "type": "string",
           "default": "",
           "description": "Custom path to server module. If there is no setting, the built-in module will be used"
+        },
+        "tailwindCSS.custom.cssModeServerPath": {
+          "type": "string",
+          "default": "",
+          "description": "Custom path to css mode server module."
         },
         "tailwindCSS.emmetCompletions": {
           "type": "boolean",

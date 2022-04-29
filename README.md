@@ -58,6 +58,7 @@ npx tailwindcss init
 - `tailwindCSS.lint.invalidConfigPath`: Unknown or invalid path used with the [`theme` helper](https://tailwindcss.com/docs/functions-and-directives/#theme), valid option ["ignore", "warning", "error"], default: `error`
 - `tailwindCSS.lint.invalidTailwindDirective`: Unknown value used with the [`@tailwind` directive](https://tailwindcss.com/docs/functions-and-directives/#tailwind), valid option ["ignore", "warning", "error"], default: `error`
 - `tailwindCSS.lint.recommendedVariantOrder`: Class variants not in the recommended order (applies in [JIT mode](https://tailwindcss.com/docs/just-in-time-mode) only), valid option ["ignore", "warning", "error"], default: `error`
+- `tailwindCSS.experimental.classRegex`: ...
 - `tailwindCSS.inspectPort`: Enable the Node.js inspector agent for the language server and listen on the specified port, default: `null`
 
 ## Commands

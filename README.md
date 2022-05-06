@@ -38,6 +38,26 @@ Create tailwindCSS configuration in your project.
 npx tailwindcss init
 ```
 
+## TIPS
+
+### workspaceFolders
+
+Depending on the project like mono repo or how Vim/Neovim is started, `workspaceFolders` may not be recognized correctly.
+
+To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
+
+**Example for html filetype**:
+
+```vim
+  au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
+```
+
+Also, `workspaceFolders` can be adjusted and added manually. Set the directory where `tailwind.config.js` or `tailwind.config.cjs` exists.
+
+See the coc.nvim wiki for more information.
+
+- <https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders>
+
 ## Configuration options
 
 - `tailwindCSS.enable`: Enable coc-tailwindcss3 extension, default: `true`

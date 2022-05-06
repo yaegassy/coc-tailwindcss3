@@ -40,11 +40,23 @@ npx tailwindcss init
 
 ## TIPS
 
+`coc-tailwindcss3` may not work for some projects such as monorepo or depending on how Vim/Neovim is started. Try one of the following methods
+
+### Open the tailwindcss configuration file
+
+Open the `tailwind.config.js` or `tailwind.config.cjs` file that exists in your project.
+
+### Force activate extension
+
+Run the command to force extension activation.
+
+```vim
+:CocCommand tailwindCSS.forceActivate
+```
+
 ### workspaceFolders
 
-Depending on the project like mono repo or how Vim/Neovim is started, `workspaceFolders` may not be recognized correctly.
-
-To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
+`workspaceFolders` may not have been properly recognized. To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
 
 **Example for html filetype**:
 
@@ -52,7 +64,7 @@ To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root
   au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
 ```
 
-Also, `workspaceFolders` can be adjusted and added manually. Set the directory where `tailwind.config.js` or `tailwind.config.cjs` exists.
+Also, `workspaceFolders` can be adjusted manually. Set the directory where `tailwind.config.js` or `tailwind.config.cjs` exists.
 
 See the coc.nvim wiki for more information.
 
@@ -84,6 +96,7 @@ See the coc.nvim wiki for more information.
 ## Commands
 
 - `tailwindCSS.showOutput`: Tailwind CSS: Show Output
+- `tailwindCSS.forceActivate`: Tailwind CSS: Force Activate
 
 ## Custom Server Path
 

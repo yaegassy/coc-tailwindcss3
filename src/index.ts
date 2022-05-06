@@ -230,8 +230,14 @@ export async function activate(context: ExtensionContext) {
 
   async function didOpenTextDocument(document: TextDocument): Promise<void> {
     const uri = Uri.parse(document.uri);
-
     if (uri.scheme !== 'file') return;
+
+    // Stop folder search for unsupported languageId (filetype) [for coc-tailwindcss3]
+    const supportedLanguages: string[] = [];
+    supportedLanguages.push(...defaultLanguages);
+    const includeLanguages = workspace.getConfiguration('tailwindCSS').get<string[]>('includeLanguages');
+    if (includeLanguages) supportedLanguages.push(...Object.keys(includeLanguages));
+    if (!supportedLanguages.includes(document.languageId)) return;
 
     let folder = workspace.getWorkspaceFolder(document.uri);
     // Files outside a folder can't be handled. This might depend on the language.

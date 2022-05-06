@@ -52,7 +52,10 @@
     "typescript": "^4.6.3"
   },
   "activationEvents": [
-    "*"
+    "workspaceContains:**/tailwind.js",
+    "workspaceContains:**/tailwind.cjs",
+    "workspaceContains:**/tailwind.config.js",
+    "workspaceContains:**/tailwind.config.cjs"
   ],
   "contributes": {
     "configuration": {

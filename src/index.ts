@@ -86,6 +86,12 @@ function isExcluded(file: string, folder: WorkspaceFolder): boolean {
 export async function activate(context: ExtensionContext) {
   if (!getConfigTailwindCssEnable()) return;
 
+  context.subscriptions.push(
+    commands.registerCommand('tailwindCSS.forceActivate', async () => {
+      window.showMessage(`Force activation of coc-tailwindcss3`);
+    })
+  );
+
   let module = getConfigCustomServerPath();
   if (module && fs.existsSync(module)) {
     module = module;

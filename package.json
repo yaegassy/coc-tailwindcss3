@@ -55,7 +55,8 @@
     "workspaceContains:**/tailwind.js",
     "workspaceContains:**/tailwind.cjs",
     "workspaceContains:**/tailwind.config.js",
-    "workspaceContains:**/tailwind.config.cjs"
+    "workspaceContains:**/tailwind.config.cjs",
+    "onCommand:tailwindCSS.forceActivate"
   ],
   "contributes": {
     "configuration": {
@@ -260,6 +261,10 @@
       {
         "command": "tailwindCSS.showOutput",
         "title": "Tailwind CSS: Show Output"
+      },
+      {
+        "command": "tailwindCSS.forceActivate",
+        "title": "Tailwind CSS: Force Activate"
       }
     ]
   },

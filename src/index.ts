@@ -4,7 +4,6 @@ import {
   LanguageClient,
   LanguageClientOptions,
   OutputChannel,
-  RelativePattern,
   ServerOptions,
   TextDocument,
   Thenable,
@@ -15,8 +14,9 @@ import {
   WorkspaceFolder,
 } from 'coc.nvim';
 import fs from 'fs';
-import minimatch from 'minimatch';
 import path from 'path';
+import minimatch from 'minimatch';
+import fg from 'fast-glob';
 import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
@@ -255,15 +255,18 @@ export async function activate(context: ExtensionContext) {
     // If we have nested workspace folders we only start a server on the outer most workspace folder.
     folder = getOuterMostWorkspaceFolder(folder);
 
-    const [configFile] = await workspace.findFiles(
-      new RelativePattern(folder, `**/${CONFIG_FILE_GLOB}`),
-      `{${getConfigExcludePatterns().join(',')}}`,
-      1
-    );
-
-    if (!configFile) return;
-
-    bootWorkspaceClient(folder);
+    try {
+      const configFiles = await fg(path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_FILE_GLOB), {
+        ignore: getConfigExcludePatterns(),
+      });
+      if (!configFiles || configFiles.length === 0) {
+        return;
+      }
+      bootWorkspaceClient(folder);
+    } catch (error: any) {
+      outputChannel.appendLine(`fg: ${error.stack || error.message || error}`);
+      return;
+    }
   }
 
   context.subscriptions.push(workspace.onDidOpenTextDocument(didOpenTextDocument));

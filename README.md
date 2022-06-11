@@ -160,6 +160,8 @@ npm i -g @tailwindcss/language-server@0.0.7
 ## Thanks
 
 - <https://github.com/tailwindlabs/tailwindcss-intellisense>
+- <https://github.com/heybourn/headwind>
+- <https://github.com/iamcco/coc-tailwindcss>
 
 ## License
 

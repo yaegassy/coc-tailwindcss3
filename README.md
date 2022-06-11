@@ -1,6 +1,6 @@
 # coc-tailwindcss3
 
-> fork from a [vscode-tailwindcss](https://github.com/tailwindlabs/tailwindcss-intellisense/tree/master/packages/vscode-tailwindcss)
+> fork from [vscode-tailwindcss](https://github.com/tailwindlabs/tailwindcss-intellisense/tree/master/packages/vscode-tailwindcss) and [headwind](https://github.com/heybourn/headwind)
 
 Intelligent Tailwind CSS tooling for [coc.nvim](https://github.com/neoclide/coc.nvim).
 
@@ -92,11 +92,19 @@ See the coc.nvim wiki for more information.
 - `tailwindCSS.lint.recommendedVariantOrder`: Class variants not in the recommended order (applies in [JIT mode](https://tailwindcss.com/docs/just-in-time-mode) only), valid option ["ignore", "warning", "error"], default: `error`
 - `tailwindCSS.experimental.classRegex`: ...
 - `tailwindCSS.inspectPort`: Enable the Node.js inspector agent for the language server and listen on the specified port, default: `null`
+- `tailwindCSS.headwind.defaultSortOrder`: Sort order: A string array that determines the default sort order.
+  - Check the "Configuration" section of [package.json](package.json) for default values.
+- `tailwindCSS.headwind.classRegex`: An object with language IDs as keys and their values determining the regex to search for Tailwind CSS classes.
+  - Check the "Configuration" section of [package.json](package.json) for default values.
+- `tailwindCSS.headwind.runOnSave`: A flag that controls whether or not Headwind will sort your Tailwind CSS classes on save, default: `false`
+- `tailwindCSS.headwind.removeDuplicates`: A flag that controls whether or not Headwind will remove duplicate Tailwind CSS classes, default: `true`
 
 ## Commands
 
 - `tailwindCSS.showOutput`: Tailwind CSS: Show Output
 - `tailwindCSS.forceActivate`: Tailwind CSS: Force Activate
+- `tailwindCSS.headwind.sortTailwindClasses`: Headwind: Sort Tailwind CSS Classes
+- `tailwindCSS.headwind.sortTailwindClassesOnWorkspace`: Headwind: Sort Tailwind CSS Classes on Entire Workspace
 
 ## Custom Server Path
 

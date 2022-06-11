@@ -900,6 +900,11 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+rustywind@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/rustywind/-/rustywind-0.7.1.tgz#2a7ea6b8980ddd00ec546a20c30af32adba37266"
+  integrity sha512-Vog/sEMN7trzcHXTs4MSfAJWs5Of6gG7C/VpW0re/EdfYdlAOYuiwOS9xmC7swqkQR/hV7YDkvDqzSWa+yTpbA==
+
 semver@^7.3.5:
   version "7.3.7"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.7.tgz#12c5b649afdbf9049707796e22a4028814ce523f"

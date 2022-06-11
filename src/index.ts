@@ -21,6 +21,7 @@ import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindC
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
+import { activateHeadwind } from './headwind';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
 
@@ -174,6 +175,9 @@ export async function activate(context: ExtensionContext) {
     // ----
     // Unable to resolve "undefined": unknown node or service
     const inspectPort = configuration.tailwindCSS.get('inspectPort', null);
+
+    // register headwind
+    activateHeadwind(context);
 
     const serverOptions: ServerOptions = {
       run: {

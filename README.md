@@ -98,6 +98,8 @@ See the coc.nvim wiki for more information.
   - Check the "Configuration" section of [package.json](package.json) for default values.
 - `tailwindCSS.headwind.runOnSave`: A flag that controls whether or not Headwind will sort your Tailwind CSS classes on save, default: `false`
 - `tailwindCSS.headwind.removeDuplicates`: A flag that controls whether or not Headwind will remove duplicate Tailwind CSS classes, default: `true`
+- `tailwindCSS.headwind.prependCustomClasses`: A flag that controls whether or not Headwind will move custom CSS classes before (true) or after (false) the Tailwind CSS classes, default: `false`
+- `tailwindCSS.headwind.customTailwindPrefix`: If the Tailwind Prefix function is used, this can be specified here (e.g. tw-), default: `""`
 
 ## Commands
 

@@ -89,7 +89,7 @@ export async function activate(context: ExtensionContext) {
 
   context.subscriptions.push(
     commands.registerCommand('tailwindCSS.forceActivate', async () => {
-      window.showMessage(`Force activation of coc-tailwindcss3`);
+      window.showInformationMessage(`Force activation of coc-tailwindcss3`);
     })
   );
 

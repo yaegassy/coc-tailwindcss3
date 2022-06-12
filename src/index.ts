@@ -21,7 +21,7 @@ import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindC
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
-import { activateHeadwind } from './headwind';
+import * as headwindFeature from './headwind/headwindFeature';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
 
@@ -177,7 +177,7 @@ export async function activate(context: ExtensionContext) {
     const inspectPort = configuration.tailwindCSS.get('inspectPort', null);
 
     // register headwind
-    activateHeadwind(context);
+    headwindFeature.activate(context);
 
     const serverOptions: ServerOptions = {
       run: {

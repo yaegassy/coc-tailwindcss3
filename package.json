@@ -49,7 +49,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.3"
   },
   "activationEvents": [
     "workspaceContains:**/tailwind.js",

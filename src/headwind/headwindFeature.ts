@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { commands, ExtensionContext, Range, Uri, window, workspace } from 'coc.nvim';
+import { commands, ExtensionContext, OutputChannel, Range, Uri, window, workspace } from 'coc.nvim';
 import path from 'path';
 import { buildMatchers, getTextMatch, sortClassString } from './headwindUtils';
 
@@ -26,7 +26,7 @@ const shouldPrependCustomClasses =
 
 let isActive = false;
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext, outputChannel: OutputChannel) {
   if (isActive) {
     return;
   }
@@ -42,10 +42,16 @@ export function activate(context: ExtensionContext) {
     const editorText = doc.textDocument.getText();
     const editorLangId = doc.textDocument.languageId;
 
+    outputChannel.appendLine(`\n${'#'.repeat(10)} headwind exec\n`);
+    outputChannel.appendLine(`editorLangId: ${editorLangId}`);
+    outputChannel.appendLine(`langConfig: ${JSON.stringify(langConfig[editorLangId], null, 2)}\n`);
+
     const matchers = buildMatchers(langConfig[editorLangId] || langConfig['html']);
 
     for (const matcher of matchers) {
       getTextMatch(matcher.regex, editorText, (text, startPosition) => {
+        outputChannel.appendLine(`Regex: ${matcher.regex}`);
+        outputChannel.appendLine(`MatchText: ${text}\n`);
         const endPosition = startPosition + text.length;
         const range = Range.create(
           doc.textDocument.positionAt(startPosition),

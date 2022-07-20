@@ -177,7 +177,7 @@ export async function activate(context: ExtensionContext) {
     const inspectPort = configuration.tailwindCSS.get('inspectPort', null);
 
     // register headwind
-    headwindFeature.activate(context);
+    headwindFeature.activate(context, outputChannel);
 
     const serverOptions: ServerOptions = {
       run: {

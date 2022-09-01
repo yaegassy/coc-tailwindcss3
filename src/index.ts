@@ -13,14 +13,17 @@ import {
   workspace,
   WorkspaceFolder,
 } from 'coc.nvim';
-import fs from 'fs';
-import path from 'path';
-import minimatch from 'minimatch';
 import fg from 'fast-glob';
+import fs from 'fs';
+import minimatch from 'minimatch';
+import path from 'path';
+
 import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
+
+import * as dashForceCompletionFeature from './completions/dashForce';
 import * as headwindFeature from './headwind/headwindFeature';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
@@ -197,12 +200,14 @@ export async function activate(context: ExtensionContext) {
     const languageObj = languages.get(folder.uri.toString());
     if (!languageObj) return;
 
+    const documentSelector = languageObj.map((language) => ({
+      scheme: 'file',
+      language,
+      pattern: `${Uri.parse(folder!.uri).fsPath}/**/*`,
+    }));
+
     const clientOptions: LanguageClientOptions = {
-      documentSelector: languageObj.map((language) => ({
-        scheme: 'file',
-        language,
-        pattern: `${Uri.parse(folder!.uri).fsPath}/**/*`,
-      })),
+      documentSelector,
       diagnosticCollectionName: 'tailwindcss-language-server',
       workspaceFolder: folder,
       outputChannel: outputChannel,
@@ -236,6 +241,9 @@ export async function activate(context: ExtensionContext) {
 
     client.start();
     clients.set(folder.uri.toString(), client);
+
+    // register dash (-) force completion
+    dashForceCompletionFeature.register(context, documentSelector);
   }
 
   async function didOpenTextDocument(document: TextDocument): Promise<void> {

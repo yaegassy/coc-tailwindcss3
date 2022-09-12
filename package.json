@@ -26,8 +26,6 @@
     "access": "public"
   },
   "scripts": {
-    "test": "vitest run src/__tests__",
-    "test:watch": "vitest src/__tests__",
     "lint": "eslint src --ext ts",
     "clean": "rimraf lib",
     "watch": "node esbuild.js --watch",
@@ -51,8 +49,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "typescript": "^4.8.2",
-    "vitest": "^0.18.0"
+    "typescript": "^4.8.2"
   },
   "activationEvents": [
     "workspaceContains:**/tailwind.js",

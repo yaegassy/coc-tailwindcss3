@@ -138,7 +138,7 @@ export async function activate(context: ExtensionContext) {
         const folder = workspace.getWorkspaceFolder(Uri.parse(key).toString());
         if (!folder) return;
 
-        if (event.affectsConfiguration('tailwindCSS', folder.uri.toString())) {
+        if (event.affectsConfiguration('tailwindCSS.includeLanguages', folder.uri.toString())) {
           const userLanguages = getUserLanguages(folder);
           if (userLanguages) {
             const userLanguageIds = Object.keys(userLanguages);

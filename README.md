@@ -46,14 +46,6 @@ npx tailwindcss init
 
 Open the `tailwind.config.js` or `tailwind.config.cjs` file that exists in your project.
 
-### Force activate extension
-
-Run the command to force extension activation.
-
-```vim
-:CocCommand tailwindCSS.forceActivate
-```
-
 ### workspaceFolders
 
 `workspaceFolders` may not have been properly recognized. To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
@@ -105,7 +97,6 @@ See the coc.nvim wiki for more information.
 ## Commands
 
 - `tailwindCSS.showOutput`: Tailwind CSS: Show Output
-- `tailwindCSS.forceActivate`: Tailwind CSS: Force Activate
 - `tailwindCSS.headwind.sortTailwindClasses`: Headwind: Sort Tailwind CSS Classes
 - `tailwindCSS.headwind.sortTailwindClassesOnWorkspace`: Headwind: Sort Tailwind CSS Classes on Entire Workspace
 

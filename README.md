@@ -14,19 +14,11 @@ I have created `@yaegassy/coc-tailwindcss3` which supports "tailwindcss3".
 
 ## Install
 
-**CocInstall**:
-
 ```vim
 :CocInstall @yaegassy/coc-tailwindcss3
 ```
 
 > scoped packages
-
-**vim-plug**:
-
-```vim
-Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
-```
 
 ## Prepare
 
@@ -113,8 +105,8 @@ This setting allows you to use the tailwind's language server module installed i
 ```bash
 mkdir -p /tmp/tailwindcss-language-server
 cd /tmp/tailwindcss-language-server
-curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.8.6/vscode-tailwindcss-0.8.6.vsix
-unzip vscode-tailwindcss-0.8.6.vsix
+curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.8.7/vscode-tailwindcss-0.8.7.vsix
+unzip vscode-tailwindcss-0.8.7.vsix
 ```
 
 **setting**:
@@ -131,7 +123,7 @@ unzip vscode-tailwindcss-0.8.6.vsix
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.8.6/dist/tailwindServer.js
+  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.8.7/dist/tailwindServer.js
 }
 ```
 
@@ -140,14 +132,14 @@ unzip vscode-tailwindcss-0.8.6.vsix
 **prepare**:
 
 ```bash
-npm i -g @tailwindcss/language-server@0.0.7
+npm i -g @tailwindcss/language-server@0.0.8
 ```
 
 **setting**:
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v16.14.2/bin/tailwindcss-language-server"
+  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v16.17.0/bin/tailwindcss-language-server"
 }
 ```
 

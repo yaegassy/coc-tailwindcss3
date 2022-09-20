@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.5",
-    "@types/node": "^16.11.58",
+    "@types/node": "^16.11.59",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "coc.nvim": "^0.0.81",

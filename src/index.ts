@@ -23,7 +23,6 @@ import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
 
-import * as dashForceCompletionFeature from './completions/dashForce';
 import * as headwindFeature from './headwind/headwindFeature';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
@@ -235,9 +234,6 @@ export async function activate(context: ExtensionContext) {
 
     client.start();
     clients.set(folder.uri.toString(), client);
-
-    // register dash (-) force completion
-    dashForceCompletionFeature.register(context, documentSelector);
   }
 
   async function didOpenTextDocument(document: TextDocument): Promise<void> {

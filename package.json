@@ -79,11 +79,6 @@
           "default": "",
           "description": "Custom path to server module. If there is no setting, the built-in module will be used"
         },
-        "tailwindCSS.dashForceCompletions": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable dash (-) force completions feature"
-        },
         "tailwindCSS.emmetCompletions": {
           "type": "boolean",
           "default": false,

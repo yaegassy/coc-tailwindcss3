@@ -104,8 +104,8 @@ This setting allows you to use the tailwind's language server module installed i
 ```bash
 mkdir -p /tmp/tailwindcss-language-server
 cd /tmp/tailwindcss-language-server
-curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.8.7/vscode-tailwindcss-0.8.7.vsix
-unzip vscode-tailwindcss-0.8.7.vsix
+curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.9.1/vscode-tailwindcss-0.9.1.vsix
+unzip vscode-tailwindcss-0.9.1.vsix
 ```
 
 **setting**:

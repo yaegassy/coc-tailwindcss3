@@ -122,7 +122,7 @@ unzip vscode-tailwindcss-0.9.1.vsix
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.8.7/dist/tailwindServer.js
+  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.9.1/dist/tailwindServer.js
 }
 ```
 
@@ -131,7 +131,7 @@ unzip vscode-tailwindcss-0.9.1.vsix
 **prepare**:
 
 ```bash
-npm i -g @tailwindcss/language-server@0.0.8
+npm i -g @tailwindcss/language-server
 ```
 
 **setting**:

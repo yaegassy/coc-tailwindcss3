@@ -19,6 +19,7 @@ import minimatch from 'minimatch';
 import path from 'path';
 
 import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
+import { CONFIG_GLOB } from './constants';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
@@ -26,8 +27,6 @@ import { languages as defaultLanguages } from './util/languages';
 import * as headwindFeature from './headwind/headwindFeature';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
-
-const CONFIG_FILE_GLOB = '{tailwind,tailwind.config}.{js,cjs}';
 
 const clients: Map<string, LanguageClient | null> = new Map();
 const languages: Map<string, string[]> = new Map();
@@ -107,20 +106,18 @@ export async function activate(context: ExtensionContext) {
     })
   );
 
-  const watcher = workspace.createFileSystemWatcher(`**/${CONFIG_FILE_GLOB}`, false, true, true);
+  const configWatcher = workspace.createFileSystemWatcher(`**/${CONFIG_GLOB}`, false, true, true);
 
-  watcher.onDidCreate((uri) => {
+  configWatcher.onDidCreate((uri) => {
     let folder = workspace.getWorkspaceFolder(uri.toString());
-    if (!folder) {
+    if (!folder || isExcluded(uri.fsPath, folder)) {
       return;
     }
-    if (!isExcluded(uri.fsPath, folder)) {
-      folder = getOuterMostWorkspaceFolder(folder);
-      bootWorkspaceClient(folder);
-    }
+    folder = getOuterMostWorkspaceFolder(folder);
+    bootWorkspaceClient(folder);
   });
 
-  context.subscriptions.push(watcher);
+  context.subscriptions.push(configWatcher);
 
   // TODO: check if the actual language MAPPING changed
   // not just the language IDs
@@ -205,7 +202,7 @@ export async function activate(context: ExtensionContext) {
       workspaceFolder: folder,
       outputChannel: outputChannel,
       synchronize: {
-        fileEvents: workspace.createFileSystemWatcher(CONFIG_FILE_GLOB),
+        fileEvents: workspace.createFileSystemWatcher(CONFIG_GLOB),
       },
       middleware: {
         workspace: {
@@ -258,7 +255,7 @@ export async function activate(context: ExtensionContext) {
     folder = getOuterMostWorkspaceFolder(folder);
 
     try {
-      const configFiles = await fg(path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_FILE_GLOB), {
+      const configFiles = await fg(path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB), {
         ignore: getConfigExcludePatterns(),
       });
       if (!configFiles || configFiles.length === 0) {

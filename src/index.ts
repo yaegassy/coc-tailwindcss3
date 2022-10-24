@@ -92,9 +92,10 @@ export async function activate(context: ExtensionContext) {
   if (module && fs.existsSync(module)) {
     module = module;
   } else {
-    module = context.asAbsolutePath(
-      path.join('node_modules', '@tailwindcss', 'language-server', 'bin', 'tailwindcss-language-server')
-    );
+    module = context.asAbsolutePath(path.join('node_modules', '@twind', 'typescript-plugin', 'index.js'));
+    // module = context.asAbsolutePath(
+    // path.join('node_modules', '@tailwindcss', 'language-server', 'bin', 'tailwindcss-language-server')
+    // );
   }
 
   const outputChannel: OutputChannel = window.createOutputChannel('tailwindcss-language-server');

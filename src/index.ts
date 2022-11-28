@@ -13,22 +13,30 @@ import {
   window,
   workspace,
   WorkspaceFolder,
-} from 'coc.nvim';
-import fg from 'fast-glob';
-import fs from 'fs';
-import minimatch from 'minimatch';
-import path from 'path';
+} from "coc.nvim";
+import fg from "fast-glob";
+import fs from "fs";
+import minimatch from "minimatch";
+import path from "path";
 
-import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
-import { CONFIG_GLOB } from './constants';
-import { dedupe, equal } from './util/array';
-import isObject from './util/isObject';
-import { languages as defaultLanguages } from './util/languages';
+import {
+  getConfigCustomServerPath,
+  getConfigExcludePatterns,
+  getConfigTailwindCssEnable,
+} from "./config";
+import { CONFIG_GLOB } from "./constants";
+import { dedupe, equal } from "./util/array";
+import isObject from "./util/isObject";
+import { languages as defaultLanguages } from "./util/languages";
 
-import * as headwindFeature from './headwind/headwindFeature';
-import { colorDetect } from './color';
+import * as headwindFeature from "./headwind/headwindFeature";
+import { colorDetect } from "./color";
 
-export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
+export type ConfigurationScope =
+  | Uri
+  | TextDocument
+  | WorkspaceFolder
+  | { uri?: Uri; languageId: string };
 
 const clients: Map<string, LanguageClient | null> = new Map();
 const languages: Map<string, string[]> = new Map();
@@ -40,8 +48,8 @@ function sortedWorkspaceFolders(): string[] {
       ? workspace.workspaceFolders
           .map((folder) => {
             let result = folder.uri.toString();
-            if (result.charAt(result.length - 1) !== '/') {
-              result = result + '/';
+            if (result.charAt(result.length - 1) !== "/") {
+              result = result + "/";
             }
             return result;
           })
@@ -57,8 +65,8 @@ function getOuterMostWorkspaceFolder(folder: WorkspaceFolder): WorkspaceFolder {
   const sorted = sortedWorkspaceFolders();
   for (const element of sorted) {
     let uri = folder.uri.toString();
-    if (uri.charAt(uri.length - 1) !== '/') {
-      uri = uri + '/';
+    if (uri.charAt(uri.length - 1) !== "/") {
+      uri = uri + "/";
     }
     if (uri.startsWith(element)) {
       const workdir = workspace.getWorkspaceFolder(element);
@@ -71,7 +79,10 @@ function getOuterMostWorkspaceFolder(folder: WorkspaceFolder): WorkspaceFolder {
 }
 
 function getUserLanguages(folder?: WorkspaceFolder): Record<string, string> {
-  const langs = folder ? workspace.getConfiguration('tailwindCSS', folder.uri.toString()).includeLanguages : undefined;
+  const langs = folder
+    ? workspace.getConfiguration("tailwindCSS", folder.uri.toString())
+        .includeLanguages
+    : undefined;
   return isObject(langs) ? langs : {};
 }
 
@@ -95,20 +106,33 @@ export async function activate(context: ExtensionContext) {
     module = module;
   } else {
     module = context.asAbsolutePath(
-      path.join('node_modules', '@tailwindcss', 'language-server', 'bin', 'tailwindcss-language-server')
+      path.join(
+        "node_modules",
+        "@tailwindcss",
+        "language-server",
+        "bin",
+        "tailwindcss-language-server"
+      )
     );
   }
 
-  const outputChannel: OutputChannel = window.createOutputChannel('tailwindcss-language-server');
+  const outputChannel: OutputChannel = window.createOutputChannel(
+    "tailwindcss-language-server"
+  );
   context.subscriptions.push(
-    commands.registerCommand('tailwindCSS.showOutput', () => {
+    commands.registerCommand("tailwindCSS.showOutput", () => {
       if (outputChannel) {
         outputChannel.show();
       }
     })
   );
 
-  const configWatcher = workspace.createFileSystemWatcher(`**/${CONFIG_GLOB}`, false, true, true);
+  const configWatcher = workspace.createFileSystemWatcher(
+    `**/${CONFIG_GLOB}`,
+    false,
+    true,
+    true
+  );
 
   configWatcher.onDidCreate((uri) => {
     let folder = workspace.getWorkspaceFolder(uri.toString());
@@ -130,12 +154,25 @@ export async function activate(context: ExtensionContext) {
         const folder = workspace.getWorkspaceFolder(Uri.parse(key).toString());
         if (!folder) return;
 
-        if (event.affectsConfiguration('tailwindCSS.includeLanguages', folder.uri.toString())) {
+        if (
+          event.affectsConfiguration(
+            "tailwindCSS.includeLanguages",
+            folder.uri.toString()
+          )
+        ) {
           const userLanguages = getUserLanguages(folder);
           if (userLanguages) {
             const userLanguageIds = Object.keys(userLanguages);
-            const newLanguages = dedupe([...defaultLanguages, ...userLanguageIds]);
-            if (!equal(newLanguages, languages.get(folder.uri.toString()) as any[])) {
+            const newLanguages = dedupe([
+              ...defaultLanguages,
+              ...userLanguageIds,
+            ]);
+            if (
+              !equal(
+                newLanguages,
+                languages.get(folder.uri.toString()) as any[]
+              )
+            ) {
               languages.set(folder.uri.toString(), newLanguages);
 
               if (client) {
@@ -158,18 +195,21 @@ export async function activate(context: ExtensionContext) {
     clients.set(folder.uri.toString(), null);
 
     if (!languages.has(folder.uri.toString())) {
-      languages.set(folder.uri.toString(), dedupe([...defaultLanguages, ...Object.keys(getUserLanguages(folder))]));
+      languages.set(
+        folder.uri.toString(),
+        dedupe([...defaultLanguages, ...Object.keys(getUserLanguages(folder))])
+      );
     }
 
     const configuration = {
-      editor: workspace.getConfiguration('editor'),
-      tailwindCSS: workspace.getConfiguration('tailwindCSS'),
+      editor: workspace.getConfiguration("editor"),
+      tailwindCSS: workspace.getConfiguration("tailwindCSS"),
     };
 
     // MEMO: // If defaultValue (null) is omitted, LS will output the following log
     // ----
     // Unable to resolve "undefined": unknown node or service
-    const inspectPort = configuration.tailwindCSS.get('inspectPort', null);
+    const inspectPort = configuration.tailwindCSS.get("inspectPort", null);
 
     // register headwind
     headwindFeature.activate(context, outputChannel);
@@ -178,13 +218,15 @@ export async function activate(context: ExtensionContext) {
       run: {
         module,
         transport: TransportKind.ipc,
-        options: { execArgv: inspectPort === null ? [] : [`--inspect=${inspectPort}`] },
+        options: {
+          execArgv: inspectPort === null ? [] : [`--inspect=${inspectPort}`],
+        },
       },
       debug: {
         module,
         transport: TransportKind.ipc,
         options: {
-          execArgv: ['--nolazy', `--inspect=${6011 + clients.size}`],
+          execArgv: ["--nolazy", `--inspect=${6011 + clients.size}`],
         },
       },
     };
@@ -193,14 +235,14 @@ export async function activate(context: ExtensionContext) {
     if (!languageObj) return;
 
     const documentSelector = languageObj.map((language) => ({
-      scheme: 'file',
+      scheme: "file",
       language,
       pattern: `${Uri.parse(folder!.uri).fsPath}/**/*`,
     }));
 
     const clientOptions: LanguageClientOptions = {
       documentSelector,
-      diagnosticCollectionName: 'tailwindcss-language-server',
+      diagnosticCollectionName: "tailwindcss-language-server",
       workspaceFolder: folder,
       outputChannel: outputChannel,
       synchronize: {
@@ -212,7 +254,9 @@ export async function activate(context: ExtensionContext) {
             return params.items.map(({ section, scopeUri }) => {
               let scope: ConfigurationScope = folder;
               if (scopeUri) {
-                const doc = workspace.textDocuments.find((doc) => doc.uri.toString() === scopeUri);
+                const doc = workspace.textDocuments.find(
+                  (doc) => doc.uri.toString() === scopeUri
+                );
                 if (doc) {
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   scope = {
@@ -229,7 +273,12 @@ export async function activate(context: ExtensionContext) {
         userLanguages: getUserLanguages(folder),
       },
     };
-    const client = new LanguageClient('tailwindCSS', 'Tailwind CSS Language Server', serverOptions, clientOptions);
+    const client = new LanguageClient(
+      "tailwindCSS",
+      "Tailwind CSS Language Server",
+      serverOptions,
+      clientOptions
+    );
 
     client.start();
     clients.set(folder.uri.toString(), client);
@@ -237,13 +286,16 @@ export async function activate(context: ExtensionContext) {
 
   async function didOpenTextDocument(document: TextDocument): Promise<void> {
     const uri = Uri.parse(document.uri);
-    if (uri.scheme !== 'file') return;
+    if (uri.scheme !== "file") return;
 
     // Stop folder search for unsupported languageId (filetype) [for coc-tailwindcss3]
     const supportedLanguages: string[] = [];
     supportedLanguages.push(...defaultLanguages);
-    const includeLanguages = workspace.getConfiguration('tailwindCSS').get<string[]>('includeLanguages');
-    if (includeLanguages) supportedLanguages.push(...Object.keys(includeLanguages));
+    const includeLanguages = workspace
+      .getConfiguration("tailwindCSS")
+      .get<string[]>("includeLanguages");
+    if (includeLanguages)
+      supportedLanguages.push(...Object.keys(includeLanguages));
     if (!supportedLanguages.includes(document.languageId)) return;
 
     let folder = workspace.getWorkspaceFolder(document.uri);
@@ -257,9 +309,12 @@ export async function activate(context: ExtensionContext) {
     folder = getOuterMostWorkspaceFolder(folder);
 
     try {
-      const configFiles = await fg(path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB), {
-        ignore: getConfigExcludePatterns(),
-      });
+      const configFiles = await fg(
+        path.join(Uri.parse(folder.uri).fsPath, "**/" + CONFIG_GLOB),
+        {
+          ignore: getConfigExcludePatterns(),
+        }
+      );
       if (!configFiles || configFiles.length === 0) {
         return;
       }
@@ -270,15 +325,23 @@ export async function activate(context: ExtensionContext) {
     }
   }
 
-  async function didChangeTextDocument(e: DidChangeTextDocumentParams): Promise<void> {
-    if (e.textDocument.uri === (await workspace.getCurrentState()).document.uri) {
+  async function didChangeTextDocument(
+    e: DidChangeTextDocumentParams
+  ): Promise<void> {
+    if (
+      e.textDocument.uri === (await workspace.getCurrentState()).document.uri
+    ) {
       outputChannel.appendLine(`on document '${e.textDocument.uri}' update.`);
     }
   }
 
-  context.subscriptions.push(workspace.onDidChangeTextDocument(didChangeTextDocument));
+  context.subscriptions.push(
+    workspace.onDidChangeTextDocument(didChangeTextDocument)
+  );
 
-  context.subscriptions.push(workspace.onDidOpenTextDocument(didOpenTextDocument));
+  context.subscriptions.push(
+    workspace.onDidOpenTextDocument(didOpenTextDocument)
+  );
   workspace.textDocuments.forEach(didOpenTextDocument);
   context.subscriptions.push(
     workspace.onDidChangeWorkspaceFolders((event) => {

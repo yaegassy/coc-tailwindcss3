@@ -1,5 +1,6 @@
 import {
   commands,
+  DidChangeTextDocumentParams,
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
@@ -25,6 +26,7 @@ import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
 
 import * as headwindFeature from './headwind/headwindFeature';
+import { colorDetect } from './color';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
 
@@ -160,7 +162,7 @@ export async function activate(context: ExtensionContext) {
     }
 
     const configuration = {
-      edidor: workspace.getConfiguration('editor'),
+      editor: workspace.getConfiguration('editor'),
       tailwindCSS: workspace.getConfiguration('tailwindCSS'),
     };
 
@@ -267,6 +269,14 @@ export async function activate(context: ExtensionContext) {
       return;
     }
   }
+
+  async function didChangeTextDocument(e: DidChangeTextDocumentParams): Promise<void> {
+    if (e.textDocument.uri === (await workspace.getCurrentState()).document.uri) {
+      outputChannel.appendLine(`on document '${e.textDocument.uri}' update.`);
+    }
+  }
+
+  context.subscriptions.push(workspace.onDidChangeTextDocument(didChangeTextDocument));
 
   context.subscriptions.push(workspace.onDidOpenTextDocument(didOpenTextDocument));
   workspace.textDocuments.forEach(didOpenTextDocument);

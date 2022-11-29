@@ -1,18 +1,31 @@
-import {
-  workspace,
-  ColorInformation,
-  Color,
-  LanguageClient,
-  DidChangeTextDocumentParams,
-  OutputChannel,
-  Range,
-} from 'coc.nvim';
+import { workspace, ColorInformation, Color, LanguageClient, OutputChannel, Range } from 'coc.nvim';
 
-export const colorNamespace = 'tailwind_lsp_color';
+/**
+ * TODO: increasement highlight, fix highlight blink
+ */
+
+export const colorNamespace = 'coc_tailwind_lsp_color';
 
 const hlPrefix = 'coc_tailwind';
 
 const cacheHlGroups = new Set<string>();
+
+class Lock {
+  private _isLocking = false;
+
+  get isLocking() {
+    return this._isLocking;
+  }
+
+  lock() {
+    this._isLocking = true;
+  }
+  unLock() {
+    this._isLocking = false;
+  }
+}
+
+const asyncLock = new Lock();
 
 function getHlGroup(color: string): [boolean, string] {
   if (cacheHlGroups.has(color)) {
@@ -40,14 +53,14 @@ function toHexCons(color: Color): string {
   );
 }
 
-export async function attchHighlight(
-  e: DidChangeTextDocumentParams,
+export async function attachHighlight(
+  documentUri: string,
   namespaceId: number,
   client: LanguageClient,
   outputChannel?: OutputChannel
 ) {
   if (
-    e.textDocument.uri.toString() === (await workspace.getCurrentState()).document.uri.toString() &&
+    documentUri === (await workspace.getCurrentState()).document.uri.toString() &&
     (workspace.isNvim || (workspace.isVim && workspace.env.textprop))
   ) {
     const nvim = workspace.nvim;
@@ -55,9 +68,10 @@ export async function attchHighlight(
     const buffer = await workspace.nvim.buffer;
     const pairs = await client.sendRequest<ColorInformation[]>('textDocument/documentColor', {
       textDocument: {
-        uri: e.textDocument.uri,
+        uri: documentUri,
       },
     });
+    if (pairs.length === 0) return;
     const rangeWithHexArray = pairs.map(({ range, color }) => {
       return {
         hex: toHexCons(color),
@@ -69,16 +83,22 @@ export async function attchHighlight(
       const hgStatus = getHlGroup(unit.hex);
       return {
         group: hgStatus[1],
+        hex: unit.hex,
         range: unit.range,
         have: hgStatus[0],
       };
     });
+
+    buffer.clearNamespace(namespaceId);
+
     const script = array
       .filter((hg) => hg.have === false)
-      .map((hg) => `hi ${hlPrefix}_${hg.group} guibg=#${hg.group}`)
+      .map((hg) => `hi ${hg.group} guibg=#${hg.hex}`)
       .join('\n');
 
     outputChannel?.appendLine(script);
+
+    // create some highlight group
     if (script.length > 0) {
       await nvim.exec(script);
     }

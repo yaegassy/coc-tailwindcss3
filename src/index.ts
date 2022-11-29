@@ -26,11 +26,9 @@ import isObject from './util/isObject';
 import { languages as defaultLanguages } from './util/languages';
 
 import * as headwindFeature from './headwind/headwindFeature';
-import { attchHighlight } from './color';
+import { attachHighlight, colorNamespace } from './color';
 
 export type ConfigurationScope = Uri | TextDocument | WorkspaceFolder | { uri?: Uri; languageId: string };
-
-const colorNamespace = 'coc_tailwind_color';
 
 const clients: Map<string, LanguageClient | null> = new Map();
 const languages: Map<string, string[]> = new Map();
@@ -281,12 +279,24 @@ export async function activate(context: ExtensionContext) {
     const rootUri = Uri.file(workspace.root);
     const client = clients.get(rootUri.toString());
     if (!client) {
+      outputChannel.appendLine('have not client');
       return;
     }
-    attchHighlight(e, namespaceId, client, outputChannel);
+    await attachHighlight(e.textDocument.uri, namespaceId, client, outputChannel);
   }
 
   context.subscriptions.push(workspace.onDidChangeTextDocument(didChangeTextDocument));
+
+  // context.subscriptions.push(
+  //   workspace.onDidOpenTextDocument((e) => {
+  //     const rootUri = Uri.file(workspace.root);
+  //     const client = clients.get(rootUri.toString());
+  //     if (!client) {
+  //       return;
+  //     }
+  //     attachHighlight(e.uri, namespaceId, client, outputChannel);
+  //   })
+  // );
 
   context.subscriptions.push(workspace.onDidOpenTextDocument(didOpenTextDocument));
   workspace.textDocuments.forEach(didOpenTextDocument);

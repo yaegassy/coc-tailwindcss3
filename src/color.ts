@@ -1,16 +1,12 @@
 import { workspace, ColorInformation, Color, LanguageClient, OutputChannel, Range } from 'coc.nvim';
 
-/**
- * TODO: increasement highlight, fix highlight blink
- */
-
 export const colorNamespace = 'coc_tailwind_lsp_color';
 
 const hlPrefix = 'coc_tailwind';
 
 const cacheHlGroups = new Set<string>();
 
-class Lock {
+class Locker {
   private _isLocking = false;
 
   get isLocking() {
@@ -25,7 +21,7 @@ class Lock {
   }
 }
 
-const asyncLock = new Lock();
+const locker = new Locker();
 
 function getHlGroup(color: string): [boolean, string] {
   if (cacheHlGroups.has(color)) {
@@ -65,12 +61,18 @@ export async function attachHighlight(
   ) {
     const nvim = workspace.nvim;
 
+    if (locker.isLocking) {
+      return;
+    }
+    locker.lock();
+
     const buffer = await workspace.nvim.buffer;
     const pairs = await client.sendRequest<ColorInformation[]>('textDocument/documentColor', {
       textDocument: {
         uri: documentUri,
       },
     });
+    locker.unLock();
     if (pairs.length === 0) return;
     const rangeWithHexArray = pairs.map(({ range, color }) => {
       return {

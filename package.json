@@ -1509,6 +1509,12 @@
           "description": "If the Tailwind Prefix function is used, this can be specified here (e.g. tw-).",
           "type": "string",
           "scope": "window"
+        },
+        "tailwindCSS.documentColor.enable": {
+          "default": false,
+          "description": "Colorizer for doucment.",
+          "type": "boolean",
+          "scope": "window"
         }
       }
     },

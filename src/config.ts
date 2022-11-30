@@ -11,3 +11,7 @@ export function getConfigCustomServerPath() {
 export function getConfigExcludePatterns(): string[] {
   return workspace.getConfiguration('tailwindCSS').get<string[]>('files.exclude', []);
 }
+
+export function getConfigDocumentColorEnable() {
+  return workspace.getConfiguration('tailwindCSS').get<boolean>('documentColor.enable', false);
+}

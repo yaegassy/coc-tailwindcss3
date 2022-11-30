@@ -19,7 +19,12 @@ import fs from 'fs';
 import minimatch from 'minimatch';
 import path from 'path';
 
-import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
+import {
+  getConfigCustomServerPath,
+  getConfigDocumentColorEnable,
+  getConfigExcludePatterns,
+  getConfigTailwindCssEnable,
+} from './config';
 import { CONFIG_GLOB } from './constants';
 import { dedupe, equal } from './util/array';
 import isObject from './util/isObject';
@@ -275,17 +280,19 @@ export async function activate(context: ExtensionContext) {
   // create highlight namespace
   const namespaceId = await workspace.nvim.createNamespace(colorNamespace);
 
-  async function didChangeTextDocument(e: DidChangeTextDocumentParams): Promise<void> {
-    const rootUri = Uri.file(workspace.root);
-    const client = clients.get(rootUri.toString());
-    if (!client) {
-      outputChannel.appendLine('have not client');
-      return;
-    }
-    await attachHighlight(e.textDocument.uri, namespaceId, client, outputChannel);
+  if (getConfigDocumentColorEnable()) {
+    context.subscriptions.push(
+      workspace.onDidChangeTextDocument(async function (e: DidChangeTextDocumentParams): Promise<void> {
+        const folder = workspace.getWorkspaceFolder(e.textDocument.uri);
+        if (!folder) return;
+        const client = clients.get(folder.uri);
+        if (!client) {
+          return;
+        }
+        await attachHighlight(e.textDocument.uri, namespaceId, client, outputChannel);
+      })
+    );
   }
-
-  context.subscriptions.push(workspace.onDidChangeTextDocument(didChangeTextDocument));
 
   // context.subscriptions.push(
   //   workspace.onDidOpenTextDocument((e) => {

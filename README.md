@@ -104,8 +104,8 @@ This setting allows you to use the tailwind's language server module installed i
 ```bash
 mkdir -p /tmp/tailwindcss-language-server
 cd /tmp/tailwindcss-language-server
-curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.9.2/vscode-tailwindcss-0.9.2.vsix
-unzip vscode-tailwindcss-0.9.2.vsix
+curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.9.5/vscode-tailwindcss-0.9.5.vsix
+unzip vscode-tailwindcss-0.9.5.vsix
 ```
 
 **setting**:
@@ -122,7 +122,7 @@ unzip vscode-tailwindcss-0.9.2.vsix
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.9.2/dist/tailwindServer.js
+  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.9.5/dist/tailwindServer.js
 }
 ```
 
@@ -138,7 +138,7 @@ npm i -g @tailwindcss/language-server
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v16.17.0/bin/tailwindcss-language-server"
+  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v18.13.0/bin/tailwindcss-language-server"
 }
 ```
 

@@ -1,6 +1,4 @@
-import { spawn } from 'child_process';
-import { commands, ExtensionContext, OutputChannel, Range, Uri, window, workspace } from 'coc.nvim';
-import path from 'path';
+import { commands, ExtensionContext, OutputChannel, Range, workspace } from 'coc.nvim';
 import { buildMatchers, getTextMatch, sortClassString } from './headwindUtils';
 
 export type LangConfig =
@@ -76,34 +74,6 @@ export function activate(context: ExtensionContext, outputChannel: OutputChannel
     }
   });
 
-  const runOnProject = commands.registerCommand('tailwindCSS.headwind.sortTailwindClassesOnWorkspace', () => {
-    const workspaceFolder = workspace.workspaceFolders || [];
-    if (workspaceFolder[0]) {
-      const workspacePath = Uri.parse(workspaceFolder[0].uri).fsPath;
-      window.showInformationMessage(`Running Headwind on: ${workspacePath}`);
-
-      const rustyWindArgs = [workspacePath, '--write', shouldRemoveDuplicates ? '' : '--allow-duplicates'].filter(
-        (arg) => arg !== ''
-      );
-
-      const rustyWindBinPath = path.join(context.extensionPath, 'node_modules', '.bin', 'rustywind');
-      const rustyWindProc = spawn(rustyWindBinPath, rustyWindArgs);
-
-      rustyWindProc.stdout.on(
-        'data',
-        (data) => data && data.toString() !== '' && console.log('rustywind stdout:\n', data.toString())
-      );
-
-      rustyWindProc.stderr.on('data', (data) => {
-        if (data && data.toString() !== '') {
-          console.log('rustywind stderr:\n', data.toString());
-          window.showErrorMessage(`Headwind error: ${data.toString()}`);
-        }
-      });
-    }
-  });
-
-  context.subscriptions.push(runOnProject);
   context.subscriptions.push(disposable);
 
   // if runOnSave is enabled organize tailwind classes before saving

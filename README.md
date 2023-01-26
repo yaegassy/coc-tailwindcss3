@@ -89,7 +89,6 @@ See the coc.nvim wiki for more information.
 
 - `tailwindCSS.showOutput`: Tailwind CSS: Show Output
 - `tailwindCSS.headwind.sortTailwindClasses`: Headwind: Sort Tailwind CSS Classes
-- `tailwindCSS.headwind.sortTailwindClassesOnWorkspace`: Headwind: Sort Tailwind CSS Classes on Entire Workspace
 
 ## Custom Server Path
 

@@ -1520,10 +1520,6 @@
       {
         "command": "tailwindCSS.headwind.sortTailwindClasses",
         "title": "Headwind: Sort Tailwind CSS Classes"
-      },
-      {
-        "command": "tailwindCSS.headwind.sortTailwindClassesOnWorkspace",
-        "title": "Headwind: Sort Tailwind CSS Classes on Entire Workspace"
       }
     ]
   },

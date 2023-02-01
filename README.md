@@ -6,12 +6,6 @@ Intelligent Tailwind CSS tooling for [coc.nvim](https://github.com/neoclide/coc.
 
 <img width="744" alt="coc-tailwindcss3-screenshot" src="https://user-images.githubusercontent.com/188642/163154916-1810be1e-fa23-4936-82c1-14f3ca294e63.png">
 
-## Motivation
-
-There are two coc.nvim extensions to "tailwindcss". Unfortunately, neither is currently maintained and will not work with "tailwindcss3"...
-
-I have created `@yaegassy/coc-tailwindcss3` which supports "tailwindcss3".
-
 ## Install
 
 ```vim

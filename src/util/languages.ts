@@ -16,6 +16,7 @@ export const htmlLanguages = [
   'HTML (Eex)',
   'HTML (EEx)',
   'html-eex',
+  'htmldjango',
   'jade',
   'leaf',
   'liquid',

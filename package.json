@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/minimatch": "^3.0.5",
     "@types/node": "^18.15.1",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "coc.nvim": "^0.0.82",
     "esbuild": "^0.15.12",

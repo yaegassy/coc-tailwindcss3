@@ -229,6 +229,14 @@ export async function activate(context: ExtensionContext) {
     };
     const client = new LanguageClient('tailwindCSS', 'Tailwind CSS Language Server', serverOptions, clientOptions);
 
+    // MEMO: Define a dummy onRequest.
+    //
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    client.onRequest('@/tailwindCSS/getDocumentSymbols', async ({ uri }) => {
+      // MEMO: In coc.nvim, vscode.executeDocumentSymbolProvider is not provided by executeCommand.
+      //return commands.executeCommand<SymbolInformation[]>('vscode.executeDocumentSymbolProvider', Uri.parse(uri));
+    });
+
     client.start();
     clients.set(folder.uri.toString(), client);
   }

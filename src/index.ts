@@ -13,10 +13,13 @@ import {
   workspace,
   WorkspaceFolder,
 } from 'coc.nvim';
-import fg from 'fast-glob';
+
 import fs from 'fs';
-import minimatch from 'minimatch';
 import path from 'path';
+
+import fg from 'fast-glob';
+import minimatch from 'minimatch';
+import normalizePath from 'normalize-path';
 
 import { getConfigCustomServerPath, getConfigExcludePatterns, getConfigTailwindCssEnable } from './config';
 import { CONFIG_GLOB } from './constants';
@@ -190,15 +193,10 @@ export async function activate(context: ExtensionContext) {
     const languageObj = languages.get(folder.uri.toString());
     if (!languageObj) return;
 
-    const pattern =
-      process.platform === 'win32'
-        ? `${Uri.parse(folder!.uri).fsPath}/**/*`.replace('\\', '/')
-        : `${Uri.parse(folder!.uri).fsPath}/**/*`;
-
     const documentSelector = languageObj.map((language) => ({
       scheme: 'file',
       language,
-      pattern,
+      pattern: normalizePath(`${Uri.parse(folder!.uri).fsPath.replace(/[\[\]\{\}]/g, '?')}/**/*`),
     }));
 
     const clientOptions: LanguageClientOptions = {
@@ -270,7 +268,7 @@ export async function activate(context: ExtensionContext) {
     try {
       const fgSource =
         process.platform === 'win32'
-          ? path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB).replace(/\\/, '/')
+          ? normalizePath(`${Uri.parse(folder.uri).fsPath.replace(/[\[\]\{\}]/g, '?')}/**/${CONFIG_GLOB}`)
           : path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB);
       const configFiles = await fg(fgSource, {
         ignore: getConfigExcludePatterns(),

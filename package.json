@@ -40,6 +40,7 @@
   "devDependencies": {
     "@types/minimatch": "^3.0.5",
     "@types/node": "^18.15.11",
+    "@types/normalize-path": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "coc.nvim": "^0.0.82",
@@ -1526,6 +1527,7 @@
     "@tailwindcss/language-server": "^0.0.13",
     "fast-glob": "^3.2.11",
     "minimatch": "^5.0.1",
+    "normalize-path": "^3.0.0",
     "rustywind": "^0.7.1"
   }
 }

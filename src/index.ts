@@ -268,7 +268,7 @@ export async function activate(context: ExtensionContext) {
     try {
       const fgSource =
         process.platform === 'win32'
-          ? path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB).replace(/\\/, '/')
+          ? normalizePath(`${Uri.parse(folder.uri).fsPath.replace(/[\[\]\{\}]/g, '?')}/**/${CONFIG_GLOB}`)
           : path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB);
       const configFiles = await fg(fgSource, {
         ignore: getConfigExcludePatterns(),

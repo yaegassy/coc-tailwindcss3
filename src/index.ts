@@ -17,7 +17,6 @@ import {
 import fs from 'fs';
 import path from 'path';
 
-import fg from 'fast-glob';
 import minimatch from 'minimatch';
 import normalizePath from 'normalize-path';
 
@@ -265,22 +264,7 @@ export async function activate(context: ExtensionContext) {
     // If we have nested workspace folders we only start a server on the outer most workspace folder.
     folder = getOuterMostWorkspaceFolder(folder);
 
-    try {
-      const fgSource =
-        process.platform === 'win32'
-          ? normalizePath(`${Uri.parse(folder.uri).fsPath.replace(/[\[\]\{\}]/g, '?')}/**/${CONFIG_GLOB}`)
-          : path.join(Uri.parse(folder.uri).fsPath, '**/' + CONFIG_GLOB);
-      const configFiles = await fg(fgSource, {
-        ignore: getConfigExcludePatterns(),
-      });
-      if (!configFiles || configFiles.length === 0) {
-        return;
-      }
-      bootWorkspaceClient(folder);
-    } catch (error: any) {
-      outputChannel.appendLine(`fg: ${error.stack || error.message || error}`);
-      return;
-    }
+    bootWorkspaceClient(folder);
   }
 
   context.subscriptions.push(workspace.onDidOpenTextDocument(didOpenTextDocument));

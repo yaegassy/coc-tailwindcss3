@@ -1525,7 +1525,6 @@
   },
   "dependencies": {
     "@tailwindcss/language-server": "^0.0.13",
-    "fast-glob": "^3.2.11",
     "minimatch": "^5.0.1",
     "normalize-path": "^3.0.0",
     "rustywind": "^0.7.1"

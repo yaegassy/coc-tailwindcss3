@@ -127,6 +127,14 @@ unzip vscode-tailwindcss-0.10.0.vsix
 npm i -g @tailwindcss/language-server
 ```
 
+or `insiders` verson
+
+```bash
+npm i -g @tailwindcss/language-server@insiders
+```
+
+- <https://www.npmjs.com/package/@tailwindcss/language-server/v/insiders?activeTab=versions>
+
 **setting**:
 
 ```jsonc

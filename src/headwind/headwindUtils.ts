@@ -74,8 +74,8 @@ function buildMatcher(value: LangConfig): Matcher {
         typeof value.regex === 'string'
           ? [new RegExp(value.regex, 'gi')]
           : isArrayOfStrings(value.regex)
-          ? value.regex.map((v) => new RegExp(v, 'gi'))
-          : [],
+            ? value.regex.map((v) => new RegExp(v, 'gi'))
+            : [],
       separator: typeof value.separator === 'string' ? new RegExp(value.separator, 'g') : undefined,
       replacement: value.replacement || value.separator,
     };
@@ -99,7 +99,7 @@ export function getTextMatch(
   regexes: RegExp[],
   text: string,
   callback: (text: string, startPosition: number) => void,
-  startPosition = 0
+  startPosition = 0,
 ): void {
   if (regexes.length >= 1) {
     let wrapper: RegExpExecArray | null;

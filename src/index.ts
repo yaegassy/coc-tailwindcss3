@@ -95,7 +95,7 @@ export async function activate(context: ExtensionContext) {
     module = module;
   } else {
     module = context.asAbsolutePath(
-      path.join('node_modules', '@tailwindcss', 'language-server', 'bin', 'tailwindcss-language-server')
+      path.join('node_modules', '@tailwindcss', 'language-server', 'bin', 'tailwindcss-language-server'),
     );
   }
 
@@ -105,7 +105,7 @@ export async function activate(context: ExtensionContext) {
       if (outputChannel) {
         outputChannel.show();
       }
-    })
+    }),
   );
 
   const configWatcher = workspace.createFileSystemWatcher(`**/${CONFIG_GLOB}`, false, true, true);
@@ -147,7 +147,7 @@ export async function activate(context: ExtensionContext) {
           }
         }
       });
-    })
+    }),
   );
 
   function bootWorkspaceClient(folder: WorkspaceFolder) {
@@ -280,7 +280,7 @@ export async function activate(context: ExtensionContext) {
           client.stop();
         }
       }
-    })
+    }),
   );
 }
 

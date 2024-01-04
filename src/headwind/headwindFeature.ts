@@ -53,7 +53,7 @@ export function activate(context: ExtensionContext, outputChannel: OutputChannel
         const endPosition = startPosition + text.length;
         const range = Range.create(
           doc.textDocument.positionAt(startPosition),
-          doc.textDocument.positionAt(endPosition)
+          doc.textDocument.positionAt(endPosition),
         );
 
         const options = {
@@ -82,7 +82,7 @@ export function activate(context: ExtensionContext, outputChannel: OutputChannel
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       workspace.onWillSaveTextDocument((_e) => {
         commands.executeCommand('tailwindCSS.headwind.sortTailwindClasses');
-      })
+      }),
     );
   }
 }

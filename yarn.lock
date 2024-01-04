@@ -84,10 +84,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@tailwindcss/language-server@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/language-server/-/language-server-0.0.14.tgz#dca48a8d20aea151d926bf40e077365532a16d80"
-  integrity sha512-WLkoJWzcYoysef/yPouukwpIB5pdAeXML0B+O2rCLAM/GmGT2jB3+431y7SLghy1ByscILcQt+iUpvTwNjJjPw==
+"@tailwindcss/language-server@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/language-server/-/language-server-0.0.15.tgz#436890bd10beccd512865da70d75dce7e1563de3"
+  integrity sha512-rzW0gJTLIiqsEUJ/MumCM15hkICb2nViygaBDKlJM906bjB0P6zKoN3eDfiV0YSd0c2Vd6hFm8+Rz0SI9no6Tw==
 
 "@types/json-schema@^7.0.9":
   version "7.0.11"

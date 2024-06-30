@@ -90,36 +90,17 @@ See the coc.nvim wiki for more information.
 
 This setting allows you to use the tailwind's language server module installed in any location.
 
-### Usage Example 1 (vsix)
-
-**prepare**:
-
-```bash
-mkdir -p /tmp/tailwindcss-language-server
-cd /tmp/tailwindcss-language-server
-curl -LO https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/v0.10.5/vscode-tailwindcss-0.10.5.vsix
-unzip vscode-tailwindcss-0.10.5.vsix
-```
+### Usage Example 1 (Use extensions installed in VSCode)
 
 **setting**:
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/tmp/tailwindcss-language-server/extension/dist/tailwindServer.js",
+  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.12.3/dist/tailwindServer.js
 }
 ```
 
-### Usage Example 2 (Use extensions installed in VSCode)
-
-**setting**:
-
-```jsonc
-{
-  "tailwindCSS.custom.serverPath": "/path/to/.vscode/extensions/bradlc.vscode-tailwindcss-0.10.5/dist/tailwindServer.js
-}
-```
-
-### Usage Example 3 (npm)
+### Usage Example 2 (npm)
 
 **prepare**:
 
@@ -139,7 +120,7 @@ npm i -g @tailwindcss/language-server@insiders
 
 ```jsonc
 {
-  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v20.9.0/bin/tailwindcss-language-server"
+  "tailwindCSS.custom.serverPath": "/path/to/.nvm/versions/node/v20.15.0/bin/tailwindcss-language-server"
 }
 ```
 

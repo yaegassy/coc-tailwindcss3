@@ -118,10 +118,10 @@
   resolved "https://registry.yarnpkg.com/@pkgr/core/-/core-0.1.0.tgz#7d8dacb7fdef0e4387caf7396cbd77f179867d06"
   integrity sha512-Zwq5OCzuwJC2jwqmpEQt7Ds1DTi6BWSwoGkbb1n9pO3hzb35BoJELx7c0T23iDkBGkh2e7tvOtjF3tr3OaQHDQ==
 
-"@tailwindcss/language-server@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/language-server/-/language-server-0.0.25.tgz#dc417b0e88173b72b50fd1b218ff939e80bcf4ca"
-  integrity sha512-50zth1SuTo+auL7g0e5O+k2EBn/wk1Xn2Ya+NNiYruOjqOMFfyITKwlzVDzaHUEbmCwY3fhXDL3T41rH4xx2+Q==
+"@tailwindcss/language-server@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/language-server/-/language-server-0.0.26.tgz#fe0baaf9ff8c5fbdf6c21b78351d27d11d751881"
+  integrity sha512-kHKT6WLHVPPcryPau1MwvCmcyDi4K/AyspVcViYzdaruOPqjp2Pu+ar4AvceCt9q9d3IjiRvqgagbKHo41U88g==
 
 "@types/json-schema@^7.0.12":
   version "7.0.15"

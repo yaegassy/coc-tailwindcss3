@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-tailwindcss3",
-  "version": "0.5.18",
+  "version": "0.5.19",
   "description": "Intelligent Tailwind CSS tooling for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
@@ -1524,7 +1524,7 @@
     ]
   },
   "dependencies": {
-    "@tailwindcss/language-server": "^0.0.26",
+    "@tailwindcss/language-server": "^0.0.27",
     "minimatch": "^5.0.1",
     "normalize-path": "^3.0.0",
     "rustywind": "^0.7.1"

@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-tailwindcss3",
-  "version": "0.5.20",
+  "version": "0.5.21",
   "description": "Intelligent Tailwind CSS tooling for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",

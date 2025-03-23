@@ -14,40 +14,6 @@ Intelligent Tailwind CSS tooling for [coc.nvim](https://github.com/neoclide/coc.
 
 > scoped packages
 
-## Prepare
-
-Create tailwindCSS configuration in your project.
-
-> this extension need the configuration exists in your project
-
-```bash
-npx tailwindcss init
-```
-
-## TIPS
-
-`coc-tailwindcss3` may not work for some projects such as monorepo or depending on how Vim/Neovim is started. Try one of the following methods
-
-### Open the tailwindcss configuration file
-
-Open the `tailwind.config.js` or `tailwind.config.cjs` file that exists in your project.
-
-### workspaceFolders
-
-`workspaceFolders` may not have been properly recognized. To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
-
-**Example for html filetype**:
-
-```vim
-  au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
-```
-
-Also, `workspaceFolders` can be adjusted manually. Set the directory where `tailwind.config.js` or `tailwind.config.cjs` exists.
-
-See the coc.nvim wiki for more information.
-
-- <https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders>
-
 ## Configuration options
 
 - `tailwindCSS.enable`: Enable coc-tailwindcss3 extension, default: `true`
